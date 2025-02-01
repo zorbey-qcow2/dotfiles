@@ -1,0 +1,58 @@
+{
+  "layer": "top",
+  "position": "top",
+  "modules-left": ["custom/launcher", "hyprland/workspaces", "network"],
+  "modules-center": ["clock"],
+"modules-right": ["cpu", "custom/gpu", "custom/temperature", "custom/battery", "pulseaudio", "custom/brightness", "custom/logout"],
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "format": "{name}"
+  },
+"network": {
+    "format": "{ifname}: {ipaddr} {essid}",
+    "format-disconnected": "Disconnected",
+    "format-error": "Error",
+    "on-click": "kitty --title nmtui -e nmtui"
+},
+  "custom/launcher": {
+    "exec": "echo '🔍'", 
+    "interval": 0,
+    "on-click": "rofi -show drun -theme Adapta-Nokto -show-icons"
+  },
+  "custom/brightness": {
+    "exec": "sh -c 'cur=$(brightnessctl g); max=$(brightnessctl m); per=$((100*cur/max)); echo \"☀️ ${per}%\"'",
+    "interval": 5,
+    "on-click": "brightnessctl s +10%",
+    "on-scroll-up": "brightnessctl s +5%",
+    "on-scroll-down": "sh -c 'cur=$(brightnessctl g); max=$(brightnessctl m); min=$((max*10/100)); new=$((cur - (max*5/100))); if [ $new -lt $min ]; then brightnessctl s $min; else brightnessctl s 5%-; fi'"
+  },
+"custom/logout": {
+    "exec": "echo '🔒 Logout'",
+    "interval": 0,
+    "on-click": "echo -e 'lock\nlogout\nsuspend\nreboot\nshutdown' | rofi -theme Adapta-Nokto -dmenu -p 'Logout?' | xargs -I {} bash -c \"case {} in lock) hyprlock ;; logout) hyprctl dispatch exit ;; suspend) systemctl suspend ;; reboot) systemctl reboot ;; shutdown) systemctl poweroff ;; esac\""
+},
+  "cpu": {
+    "format": "CPU: {usage}%",
+    "max-length": 15
+  },
+  "custom/gpu": {
+    "exec": "intel_gpu_top -J | jq -r '.engines[] | select(.class==\"Render\").busy' | awk '{print \"GPU: \"$1\"%\"}'",
+    "interval": 5
+  },
+  "custom/temperature": {
+    "exec": "sensors | grep 'Package id 0:' | awk '{print \"Temp: \"$4}'",
+    "interval": 5
+  },
+  "custom/battery": {
+    "exec": "cat /sys/class/power_supply/BAT0/uevent | grep POWER_SUPPLY_CAPACITY= | cut -d'=' -f2 | awk '{if ($1 >= 80) icon=\"🔋\"; else if ($1 >= 60) icon=\"🔌\"; else if ($1 >= 40) icon=\"🔋\"; else if ($1 >= 20) icon=\"🪫\"; else icon=\"⚡\"; print \"Battery: \"$1\"% \"icon}'",
+    "interval": 10
+  },
+  "clock": {
+    "format": "{:%A, %b %d | %H:%M}",
+    "tooltip": "Cyber time!",
+    "on-click": "kitty --title calcurse -e calcurse"
+  },
+  "pulseaudio": {
+    "format": "Vol: {volume}%"
+  }
+}
