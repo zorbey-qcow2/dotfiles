@@ -1,0 +1,84 @@
+/* General font and background styling */
+* {
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 12px;
+  background: #0f111a;
+  color: #a1e8ff;
+}
+
+/* Add manual separators */
+#cpu,
+#custom-gpu,
+#custom-temperature,
+#custom-battery,
+#pulseaudio {
+  border-right: 1px solid #44475a;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+#custom-brightness {
+  padding-left: 10px; /* Ensure proper spacing for the last module */
+  padding-right: 10px;
+}
+
+/* Custom module colors */
+#cpu {
+  color: #ff5733; /* Bright orange */
+}
+
+#custom-gpu {
+  color: #ffaa00;
+}
+
+#custom-temperature {
+  color: #00ffee;
+}
+
+#custom-battery {
+  color: #e1ff00;
+}
+
+#pulseaudio {
+  color: #ffaa00;
+}
+
+#custom-brightness {
+  color: #ffcc00;
+}
+
+/* Clock module */
+#clock {
+  font-size: 14px;
+  color: #00ffee;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+/* Tooltip styling */
+.tooltip {
+  background-color: #2e3440;
+  color: #81a1c1;
+  border: 1px solid #88c0d0;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+#custom-logout {
+    color: #ff5555;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-left: 1px solid #44475a;
+}
+
+#network {
+    color: #00ffee;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-right: 1px solid #44475a;
+}
+
+#network:hover {
+    background-color: #44475a;
+    color: #ffffff;
+}
